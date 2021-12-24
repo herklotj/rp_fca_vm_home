@@ -236,7 +236,7 @@ view: home_claims_fca {
 
 
   measure: fca_incident_count {
-    label: "FCA Incident"
+    label: "Reported Incidents"
     type: sum
     sql:  cast(${TABLE}.fca_incident_ind as int) ;;
     value_format_name: decimal_0
