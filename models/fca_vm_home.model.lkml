@@ -16,3 +16,5 @@ explore: home_claims_fca{}
 explore: home_complaints_fca{}
 
 explore: home_monthly {}
+
+explore: home_accepted_paid {}
