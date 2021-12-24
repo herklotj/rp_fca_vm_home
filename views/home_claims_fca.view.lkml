@@ -291,6 +291,12 @@ view: home_claims_fca {
     value_format_name: decimal_0
   }
 
+  measure: fca_98_percentile {
+    label: "FCA 98th Percentile"
+    type: number
+    sql:  PERCENTILE_CONT(0.98) WITHIN GROUP(ORDER BY total_incurred) ;;
+    value_format_name: decimal_0
+  }
 
 
 
