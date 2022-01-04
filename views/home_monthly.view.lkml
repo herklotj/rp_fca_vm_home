@@ -25,6 +25,18 @@ view: home_monthly {
     label: "Policy UW"
   }
 
+  dimension: policy_product {
+    type: string
+    sql: ${TABLE}.policy_product ;;
+    label: "Policy Product"
+  }
+
+  dimension: policy_cover {
+    type: string
+    sql: ${TABLE}.policy_cover ;;
+    label: "Policy Cover"
+  }
+
   dimension: policy_status {
     type: string
     sql: ${TABLE}.policy_status ;;

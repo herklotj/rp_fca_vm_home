@@ -25,6 +25,63 @@ view: home_complaints_fca {
     label: "UW Policy Number"
   }
 
+  dimension: policy_product {
+    type: string
+    sql: ${TABLE}.policy_product ;;
+    label: "Policy Product"
+  }
+
+  dimension: policy_cover {
+    type: string
+    sql: ${TABLE}.policy_cover ;;
+    label: "Policy Cover"
+  }
+
+  dimension_group: policy_inception_date {
+    label: "Policy Inception"
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+      fiscal_year
+    ]
+    sql: ${TABLE}.policy_inception_dttm ;;
+    group_label: "Dates"
+  }
+
+  dimension_group: policy_start_date {
+    label: "Policy Start"
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+      fiscal_year
+    ]
+    sql: ${TABLE}.policy_start_dttm ;;
+    group_label: "Dates"
+  }
+
+  dimension: uw_year {
+    type: number
+    sql: ${TABLE}.uw_year ;;
+    label: "UW Year"
+  }
+
+  dimension: fuw_year {
+    type: number
+    sql: ${TABLE}.fuw_year ;;
+    label: "FUW Year"
+  }
+
+
   dimension_group: claim_notification_dttm {
     label: "Claim Notification"
     type: time
