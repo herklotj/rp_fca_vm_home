@@ -406,6 +406,14 @@ view: home_claims_fca {
     group_label: "Complaint Measures"
   }
 
+  measure: fca_cmp_clm_count {
+    label: "FCA Complaint Claim Count"
+    type: sum
+    sql:  cast(${TABLE}.fca_complaint_count as int) ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
   measure: fca_upheld_count {
     label: "FCA Upheld Count"
     type: sum
