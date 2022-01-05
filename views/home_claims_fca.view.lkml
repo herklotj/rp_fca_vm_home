@@ -409,7 +409,7 @@ view: home_claims_fca {
   measure: fca_cmp_clm_count {
     label: "FCA Complaint Registered Claim Count"
     type: sum
-    sql:  case when ${TABLE}.fca_registered_claim = true then cast(${TABLE}.fca_complaint_ind as int) else 0 ;;
+    sql:  case when ${TABLE}.fca_registered_claim = true then cast(${TABLE}.fca_complaint_ind as int) else 0 end;;
     value_format_name: decimal_0
     group_label: "Complaint Measures"
   }
