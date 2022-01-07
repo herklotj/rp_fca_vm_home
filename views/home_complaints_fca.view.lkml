@@ -185,7 +185,7 @@ view: home_complaints_fca {
   dimension: justification_status {
     type: string
     sql: ${TABLE}.justification_status ;;
-    label: "Feedback Status"
+    label: "Justification Status"
   }
 
   dimension: feedback_ind {
