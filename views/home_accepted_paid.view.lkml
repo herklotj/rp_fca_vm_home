@@ -73,7 +73,7 @@ union all
   from
     aapricing.v_home_claims_fca a
   left join
-    actian.tcs_payments_reporting b
+    actian.tcscsv_payments_reporting b
   on
     a.claim_no = b.claimnumber
   where
