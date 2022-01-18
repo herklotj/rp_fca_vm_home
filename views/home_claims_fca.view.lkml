@@ -431,8 +431,19 @@ view: home_claims_fca {
     group_label: "Complaint Measures"
   }
 
+  measure: fca_accepted_paid_amount {
+    label: "FCA Accepted Paid Amount"
+    type: sum
+    sql:  ${TABLE}.fca_accepted_paid_amount ;;
+    value_format_name: decimal_0
+  }
 
-
+  measure: total_incurred {
+    label: "Total Incurred"
+    type: sum
+    sql:  ${TABLE}.total_incurred ;;
+    value_format_name: decimal_0
+  }
 
 
 
