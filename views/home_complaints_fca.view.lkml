@@ -276,6 +276,69 @@ view: home_complaints_fca {
     value_format_name: decimal_0
   }
 
+  measure: fca_complaint_ad {
+    label: "FCA Complaint - AD"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'AD' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_eow {
+    label: "FCA Complaint - EoW"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'EOW' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_fire {
+    label: "FCA Complaint - Fire"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'FIRE' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_flood {
+    label: "FCA Complaint - Flood"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'FLOOD' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_other {
+    label: "FCA Complaint - Other"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'OTHER' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_storm {
+    label: "FCA Complaint - Storm"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'STORM' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_subsidence {
+    label: "FCA Complaint - Subsidence"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'SUBSIDENCE' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_theft {
+    label: "FCA Complaint - Theft"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'THEFT' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
 
 
 
