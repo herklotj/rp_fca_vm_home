@@ -105,6 +105,7 @@ view: home_claims_fca {
     type: time
     timeframes: [
       raw,
+      hour,
       date,
       week,
       month,
