@@ -18,3 +18,5 @@ explore: home_complaints_fca{}
 explore: home_monthly {}
 
 explore: home_accepted_paid {}
+
+explore: home_reporting_remedy {}

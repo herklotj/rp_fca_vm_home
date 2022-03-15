@@ -44,6 +44,38 @@ view: home_monthly {
     group_label: "Dates"
   }
 
+  dimension: policy_cover {
+    type: string
+    sql: ${TABLE}.policy_cover ;;
+    label: "Policy Cover"
+  }
+
+  dimension: exposure_h1_flag {
+    type: yesno
+    sql:month(cast(${TABLE}.exposure_mth as TIMESTAMP without TIME zone)) in (1,2,3,4,5,6) ;;
+    label: "Exposure H1 IND"
+    group_label: "Exposure Indicators"
+  }
+
+  dimension: exposure_june_flag {
+    type: yesno
+    sql:month(cast(${TABLE}.exposure_mth as TIMESTAMP without TIME zone)) in (6) ;;
+    label: "Exposure June IND"
+    group_label: "Exposure Indicators"
+  }
+
+  dimension: exposure_dec_flag {
+    type: yesno
+    sql:month(cast(${TABLE}.exposure_mth as TIMESTAMP without TIME zone)) in (12) ;;
+    label: "Exposure Dec IND"
+    group_label: "Exposure Indicators"
+  }
+
+  dimension: aauicl_tenure {
+    type: number
+    sql: ${TABLE}.uw_tenure - 1 ;;
+    label: "AAUICL Tenure"
+  }
 
   measure: aauicl_ifp {
     label: "AAUICL IFP"
