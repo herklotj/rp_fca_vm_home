@@ -105,6 +105,7 @@ view: home_claims_fca {
     type: time
     timeframes: [
       raw,
+      hour,
       date,
       week,
       month,
@@ -232,6 +233,41 @@ view: home_claims_fca {
     label: "FCA Rejected Reason"
   }
 
+  dimension: grumble_flag {
+    type: yesno
+    sql: ${TABLE}.grumble_ind = true ;;
+    label: "Grumble Complaint IND"
+    group_label: "Complaint Indicators"
+  }
+
+  dimension: informal_complaint_flag {
+    type: yesno
+    sql: ${TABLE}.informal_complaint_ind = true ;;
+    label: "Informal Complaint IND"
+    group_label: "Complaint Indicators"
+  }
+
+  dimension: formal_complaint_flag {
+    type: yesno
+    sql: ${TABLE}.formal_complaint_ind = true ;;
+    label: "Formal Complaint IND"
+    group_label: "Complaint Indicators"
+  }
+
+  dimension: fos_complaint_flag {
+    type: yesno
+    sql: ${TABLE}.fos_complaint_ind = true ;;
+    label: "FOS Complaint IND"
+    group_label: "Complaint Indicators"
+  }
+
+  dimension: fca_complaint_flag {
+    type: yesno
+    sql: ${TABLE}.fca_complaint_ind = true ;;
+    label: "FCA Complaint IND"
+    group_label: "Complaint Indicators"
+  }
+
 
 
 
@@ -297,6 +333,119 @@ view: home_claims_fca {
     sql:  PERCENTILE_CONT(0.98) WITHIN GROUP(ORDER BY total_incurred) ;;
     value_format_name: decimal_0
   }
+
+
+  measure: eod_count {
+    label: "Grumble Count"
+    type: sum
+    sql:  ${TABLE}.grumble_count ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: eod_upheld_count {
+    label: "Grumble Upheld Count"
+    type: sum
+    sql:  ${TABLE}.grumble_upheld ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: informal_count {
+    label: "Informal Complaint Count"
+    type: sum
+    sql:  ${TABLE}.informal_complaint_count ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: informal_upheld_count {
+    label: "Informal Upheld Count"
+    type: sum
+    sql:  ${TABLE}.informal_complaint_upheld ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: formal_count {
+    label: "Formal Complaint Count"
+    type: sum
+    sql:  ${TABLE}.formal_complaint_count ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: formal_upheld_count {
+    label: "Formal Upheld Count"
+    type: sum
+    sql:  ${TABLE}.formal_complaint_upheld ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: fos_count {
+    label: "FOS Complaint Count"
+    type: sum
+    sql:  ${TABLE}.fos_complaint_count ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: fos_upheld_count {
+    label: "FOS Upheld Count"
+    type: sum
+    sql:  ${TABLE}.fos_complaint_upheld ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: fca_cmp_count {
+    label: "FCA Complaint Count"
+    type: sum
+    sql:  ${TABLE}.fca_complaint_count ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: fca_cmp_clm_count {
+    label: "FCA Complaint Registered Claim Count"
+    type: sum
+    sql:  case when ${TABLE}.fca_registered_claim = true then cast(${TABLE}.fca_complaint_ind as int) else 0 end;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: fca_cmp_inc_count {
+    label: "FCA Complaint Incident Count"
+    type: sum
+    sql:  cast(${TABLE}.fca_complaint_ind as int) ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+
+  measure: fca_upheld_count {
+    label: "FCA Upheld Count"
+    type: sum
+    sql:  ${TABLE}.fca_complaint_upheld ;;
+    value_format_name: decimal_0
+    group_label: "Complaint Measures"
+  }
+
+  measure: fca_accepted_paid_amount {
+    label: "FCA Accepted Paid Amount"
+    type: sum
+    sql:  ${TABLE}.fca_accepted_paid_amount ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_incurred {
+    label: "Total Incurred"
+    type: sum
+    sql:  ${TABLE}.total_incurred ;;
+    value_format_name: decimal_0
+  }
+
 
 
 

@@ -25,6 +25,63 @@ view: home_complaints_fca {
     label: "UW Policy Number"
   }
 
+  dimension: policy_product {
+    type: string
+    sql: ${TABLE}.policy_product ;;
+    label: "Policy Product"
+  }
+
+  dimension: policy_cover {
+    type: string
+    sql: ${TABLE}.policy_cover ;;
+    label: "Policy Cover"
+  }
+
+  dimension_group: policy_inception_date {
+    label: "Policy Inception"
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+      fiscal_year
+    ]
+    sql: ${TABLE}.policy_inception_dttm ;;
+    group_label: "Dates"
+  }
+
+  dimension_group: policy_start_date {
+    label: "Policy Start"
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+      fiscal_year
+    ]
+    sql: ${TABLE}.policy_start_dttm ;;
+    group_label: "Dates"
+  }
+
+  dimension: uw_year {
+    type: number
+    sql: ${TABLE}.uw_year ;;
+    label: "UW Year"
+  }
+
+  dimension: fuw_year {
+    type: number
+    sql: ${TABLE}.fuw_year ;;
+    label: "FUW Year"
+  }
+
+
   dimension_group: claim_notification_dttm {
     label: "Claim Notification"
     type: time
@@ -128,7 +185,7 @@ view: home_complaints_fca {
   dimension: justification_status {
     type: string
     sql: ${TABLE}.justification_status ;;
-    label: "Feedback Status"
+    label: "Justification Status"
   }
 
   dimension: feedback_ind {
@@ -219,6 +276,69 @@ view: home_complaints_fca {
     value_format_name: decimal_0
   }
 
+  measure: fca_complaint_ad {
+    label: "FCA Complaint - AD"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'AD' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_eow {
+    label: "FCA Complaint - EoW"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'EOW' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_fire {
+    label: "FCA Complaint - Fire"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'FIRE' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_flood {
+    label: "FCA Complaint - Flood"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'FLOOD' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_other {
+    label: "FCA Complaint - Other"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'OTHER' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_storm {
+    label: "FCA Complaint - Storm"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'STORM' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_subsidence {
+    label: "FCA Complaint - Subsidence"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'SUBSIDENCE' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
+
+  measure: fca_complaint_theft {
+    label: "FCA Complaint - Theft"
+    type: sum
+    sql:  case when ${TABLE}.claim_peril = 'THEFT' then cast(${TABLE}.fca_complaint_ind as int) else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "FCA Complaints by Peril"
+  }
 
 
 
