@@ -80,7 +80,7 @@ view: home_reporting_remedy {
     case when bc.bc is not null and bc.bc !=0 and cy.calc_premium_gross is not null and cy.calc_premium_gross != 0
       then 1
       else 0
-    end as in_expected_gross_loss_ratio
+    end as in_expected_gross_loss_ratio,
     case
       when bc.bc is null or bc.bc =0 then "Default LR: No BC"
       when cy.calc_premium_gross is null or cy.calc_premium_gross = 0 then "Default LR: No Gross Prem"
