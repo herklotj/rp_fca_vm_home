@@ -68,14 +68,24 @@ view: home_reporting_remedy {
     cy.effective_end_date as transaction_end_date,
     cy.aauicl_tenure,
     bc.bc as predicted_bc_ia_annualized,
-    case when bc.bc is not null and bc.bc !=0 and cy.calc_premium_gross is not null and cy.calc_premium_gross != 0
-      then bc.bc / cy.calc_premium_gross
+    case
+      when bc.bc is not null and bc.bc !=0 and cy.calc_premium_gross is not null and cy.calc_premium_gross != 0 then bc.bc / cy.calc_premium_gross
+      when (bc.bc is null or bc.bc =0) and cy.calc_premium_gross is not null and cy.calc_premium_gross != 0 then 0.64 * cy.calc_premium_net / cy.calc_premium_gross
       else 0
     end as expected_gross_loss_ratio,
+    case when bc.bc is not null and bc.bc !=0 and cy.calc_premium_net is not null and cy.calc_premium_net != 0
+      then bc.bc / cy.calc_premium_net
+      else 0.64
+    end as expected_net_loss_ratio,
     case when bc.bc is not null and bc.bc !=0 and cy.calc_premium_gross is not null and cy.calc_premium_gross != 0
       then 1
       else 0
     end as in_expected_gross_loss_ratio
+    case
+      when bc.bc is null or bc.bc =0 then "Default LR: No BC"
+      when cy.calc_premium_gross is null or cy.calc_premium_gross != 0 then "Default LR: No Gross Prem"
+      else "Ok"
+    end as in_expected_gross_loss_ratio_reason
   from  (
     select
     policy_number,
@@ -190,6 +200,12 @@ view: home_reporting_remedy {
         label: "XoL Period"
       }
 
+  dimension: in_expected_gross_loss_ratio_reason {
+    type: string
+    sql: ${TABLE}.in_expected_gross_loss_ratio_reason ;;
+    label: "Included in Expected Loss Ratio"
+  }
+
       dimension_group: policy_inception_date {
         label: "Policy Inception"
         type: time
@@ -248,6 +264,15 @@ view: home_reporting_remedy {
         value_format: "0#%"
         label: "Expected Gross Loss Ratio"
       }
+
+  dimension: expected_net_loss_ratio {
+    type: tier
+    style: relational
+    tiers: [0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80]
+    sql: ${TABLE}.expected_net_loss_ratio;;
+    value_format: "0#%"
+    label: "Expected Net Loss Ratio"
+  }
 
       dimension: in_expected_gross_loss_ratio {
         type: yesno
