@@ -82,9 +82,9 @@ view: home_reporting_remedy {
       else 0
     end as in_expected_gross_loss_ratio,
     case
-      when bc.bc is null or bc.bc =0 then "Default LR: No BC"
-      when cy.calc_premium_gross is null or cy.calc_premium_gross = 0 then "Default LR: No Gross Prem"
-      else "Ok"
+      when bc.bc is null or bc.bc =0 then 'Default LR: No BC'
+      when cy.calc_premium_gross is null or cy.calc_premium_gross = 0 then 'Default LR: No Gross Prem'
+      else 'Ok'
     end as in_expected_gross_loss_ratio_reason
   from  (
     select
