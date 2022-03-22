@@ -66,7 +66,7 @@ view: home_reporting_remedy {
     py.calc_premium_gross as gross_premium_annualized_py,
     cy.effective_start_date as transaction_start_date,
     cy.effective_end_date as transaction_end_date,
-    cy.aauicl_tenure,
+    min(cy.aauicl_tenure, 10) as aauicl_tenure,
     bc.bc as predicted_bc_ia_annualized,
     case
       when bc.bc is not null and bc.bc !=0 and cy.calc_premium_gross is not null and cy.calc_premium_gross != 0 then bc.bc / cy.calc_premium_gross
