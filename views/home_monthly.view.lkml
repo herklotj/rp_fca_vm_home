@@ -56,12 +56,6 @@ view: home_monthly {
     group_label: "Dates"
   }
 
-  dimension: policy_cover {
-    type: string
-    sql: ${TABLE}.policy_cover ;;
-    label: "Policy Cover"
-  }
-
   dimension: exposure_h1_flag {
     type: yesno
     sql:month(cast(${TABLE}.exposure_mth as TIMESTAMP without TIME zone)) in (1,2,3,4,5,6) ;;
