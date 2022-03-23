@@ -70,7 +70,11 @@ view: home_reporting_remedy {
       when cy.aauicl_tenure > 10 then 10
       else cy.aauicl_tenure
     end as aauicl_tenure,
-    bc.bc as predicted_bc_ia_annualized,
+    case
+      when cy.calc_premium_gross is not null and cy.calc_premium_gross != 0
+        then bc.bc
+        else 0
+    end as predicted_bc_ia_annualized,
     case
       when bc.bc is not null and bc.bc !=0 and cy.calc_premium_gross is not null and cy.calc_premium_gross != 0 then bc.bc / cy.calc_premium_gross
       when (bc.bc is null or bc.bc =0) and cy.calc_premium_gross is not null and cy.calc_premium_gross != 0 then 0.64 * cy.calc_premium_net / cy.calc_premium_gross
