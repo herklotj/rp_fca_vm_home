@@ -62,6 +62,7 @@ view: home_reporting_remedy {
       end
     as renewed,
     cy.calc_premium_net as net_premium_annualized,
+    py.calc_premium_net as net_premium_annualized_py,
     cy.calc_premium_gross as gross_premium_annualized,
     py.calc_premium_gross as gross_premium_annualized_py,
     cy.effective_start_date as transaction_start_date,
@@ -151,6 +152,11 @@ view: home_reporting_remedy {
           when policy_start_date = effective_start_date and policy_status in ('X','Z') then 1
           else 0
         end as same_day_canx,
+
+    case when commission_rate_1 > commission_rate_4
+      then round(transaction_premium_gross/((1+ipt_rate)*(1+commission_rate_1/(1-commission_rate_1))),0.01)
+      else round(transaction_premium_gross/((1+ipt_rate)*(1+commission_rate_4/(1-commission_rate_4))),0.01)
+    end as calc_premium_net,
 
         round(transaction_premium_gross/(1+ipt_rate),0.01) as calc_premium_gross
         from actian.home_cover) as py
@@ -292,6 +298,13 @@ view: home_reporting_remedy {
         label: "AAUICL Annualized Gross Premium Prior Year"
         type: sum
         sql:  ${TABLE}.gross_premium_annualized_py ;;
+        value_format_name: decimal_0
+      }
+
+      measure: net_premium_annualized_py {
+        label: "AAUICL Annualized Net Premium Prior Year"
+        type: sum
+        sql:  ${TABLE}.net_premium_annualized_py ;;
         value_format_name: decimal_0
       }
 
