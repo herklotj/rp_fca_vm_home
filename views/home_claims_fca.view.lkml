@@ -274,15 +274,6 @@ view: home_claims_fca {
     group_label: "Complaint Indicators"
   }
 
-  dimension: cresta_id {
-    type: string
-    sql: CONCAT('GBR_',case when substring(postcode,2,1) not in ('0','1','2','3','4','5','6','7','8','9') then left (postcode,2) else left (postcode, 1) end) ;;
-    label: "CRESTA ID"
-  }
-
-
-
-
   measure: fca_incident_count {
     label: "Reported Incidents"
     type: sum
