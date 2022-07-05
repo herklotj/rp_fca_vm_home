@@ -178,6 +178,12 @@ view: home_claims_fca {
     group_label: "Claim Indicators"
   }
 
+  dimension: postcode {
+    type: string
+    sql: ${TABLE}.postcode ;;
+    label: "Postcode"
+  }
+
   dimension: fca_registered_claim_flag {
     type: yesno
     sql: ${TABLE}.fca_registered_claim = true ;;
@@ -266,6 +272,12 @@ view: home_claims_fca {
     sql: ${TABLE}.fca_complaint_ind = true ;;
     label: "FCA Complaint IND"
     group_label: "Complaint Indicators"
+  }
+
+  dimension: cresta_id {
+    type: string
+    sql: CONCAT('GBR_',case when substring(postcode,2,1) not in ('0','1','2','3','4','5','6','7','8','9') then left (postcode,2) else left (postcode, 1) end) ;;
+    label: "CRESTA ID"
   }
 
 
