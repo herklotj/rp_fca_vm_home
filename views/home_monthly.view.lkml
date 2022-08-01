@@ -1,5 +1,5 @@
 view: home_monthly {
-  sql_table_name: aapricing.home_monthly;;
+  sql_table_name: actian.home_monthly;;
 
   dimension: policy_number {
     type: string
