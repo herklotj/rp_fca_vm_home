@@ -67,6 +67,7 @@ view: home_reporting_remedy {
     py.calc_premium_gross as gross_premium_annualized_py,
     cy.effective_start_date as transaction_start_date,
     cy.effective_end_date as transaction_end_date,
+    cy.policy_product,
     case
       when cy.aauicl_tenure > 10 then 10
       else cy.aauicl_tenure
@@ -106,6 +107,11 @@ view: home_reporting_remedy {
     policy_end_date,
     effective_start_date,
     effective_end_date,
+    case
+      when renewal_ind_premium_policy_ind = '' then 'STANDARD'
+      when renewal_ind_premium_policy_ind = 'P' then 'PLUS'
+    else ''
+    end as policy_product,
     timestampdiff(YEAR,policy_inception_date,policy_start_date) as aauicl_tenure,
     case
       when lead(policy_start_date) over(partition by policy_number order by transaction_no) = lead(effective_start_date) over(partition by policy_number order by transaction_no) and lead(policy_status) over(partition by policy_number order by transaction_no) in ('X','Z') then 1
@@ -256,6 +262,12 @@ view: home_reporting_remedy {
         type: yesno
         sql:month(${TABLE}.policy_start_date) in (1,2,3,4,5,6) ;;
         label: "Policy Start H1 IND"
+      }
+
+      dimension: policy_product {
+        type: string
+        sql: ${TABLE}.policy_product ;;
+      label: "Policy Product"
       }
 
       dimension: aauicl_tenure {
