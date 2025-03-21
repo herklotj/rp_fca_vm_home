@@ -1,6 +1,8 @@
 view: home_claims_fca {
   sql_table_name: aapricing.v_home_claims_fca  ;;
 
+  drill_fields: [source, claim_no, uw_policy_no, claim_peril, fca_registered_claim_flag, total_incurred]
+
   dimension: source {
     type: string
     sql: ${TABLE}.source ;;
