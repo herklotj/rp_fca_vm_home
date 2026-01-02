@@ -146,7 +146,7 @@ view: home_reporting_remedy {
     end as calc_commission,
 
     round(transaction_premium_gross/(1+ipt_rate),0.01) as calc_premium_gross
-    from actian.home_cover) as cy
+    from dbuser.home_ftp_cover) as cy
 
     left join (
       select
@@ -165,7 +165,7 @@ view: home_reporting_remedy {
     end as calc_premium_net,
 
         round(transaction_premium_gross/(1+ipt_rate),0.01) as calc_premium_gross
-        from actian.home_cover) as py
+        from dbuser.home_ftp_cover) as py
 
     on py.same_day_canx = 0
     and py.policy_status in ('N','R')
@@ -182,7 +182,7 @@ view: home_reporting_remedy {
         + coalesce(pbs_3a_pps,0)
         + coalesce(pbs_4_eow,0) + coalesce(pbs_4_fire,0) + coalesce(pbs_4_theft,0) + coalesce(pbs_4_storm,0) + coalesce(pbs_4_flood,0) + coalesce(pbs_4_subs,0) + coalesce(pbs_4_other,0) + coalesce(pbs_4_ad,0)
       as bc
-    from actian.home_pbs) as bc
+    from dbuser.home_ftp_pbs) as bc
     on cy.policy_number = bc.policy_number
     and cy.transaction_id = bc.transaction_id
 

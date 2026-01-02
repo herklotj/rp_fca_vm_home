@@ -33,7 +33,7 @@ view: home_accepted_paid {
   from
     aapricing.v_home_claims_fca a
   left join
-    actian.sgy_reserve_line b
+    dbuser.prod01_sgy_reserve_line b
   on
     a.claim_no = b.claimno
   where
@@ -73,7 +73,7 @@ union all
   from
     aapricing.v_home_claims_fca a
   left join
-    actian.tcscsv_payments_reporting b
+    dbuser.tcscsv_payment_reporting b
   on
     a.claim_no = b.claimnumber
   where
